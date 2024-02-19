@@ -23,8 +23,7 @@ router.get('/createResetSession',controllers.createResetSession) //reset all the
 // router.get('/gettokenuser',controllers.getUserFromToken)
 
 /*Put method*/
-// routef.route('/updateuser').put(controllers.updateUser) //to update the user profile
-router.put('/updateuser',Auth,controllers.updateUser)
+router.put('/updateuser',Auth,controllers.updateUser) //to update the user profile
 
 router.put('/resetPassword',controllers.verifyUser,controllers.resetPassword) //use to reset the password
 
