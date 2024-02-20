@@ -21,7 +21,7 @@ export default function Profile() {
   const [{ isLoading, apiData, serverError }] = useFetch();
   const navigate = useNavigate()
 
-  // console.log(apiData);
+  //  console.log(apiData);
 
   const formik = useFormik({
     initialValues : {
@@ -62,7 +62,7 @@ export default function Profile() {
 
   
   if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
-  if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
+  if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message} yeh kya hua</h1>
 
   return (
     <div className="container mx-auto">

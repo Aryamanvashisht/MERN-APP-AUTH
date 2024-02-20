@@ -176,9 +176,12 @@ export const resetPassword = async (req,res)=>{
     } 
 }   
 
-// export const getUserFromToken = async ()=>{
-//     if(!token) return Promise.reject("Cannot find the token")
-//     let decode = jwtDecode(token)
-//     //return decode
-//      console.log(decode);
-// }
+export const verifyToken = async (req,res)=>{
+   
+    try {
+        res.status(200).json({ user: req.user});
+    } catch (error) {
+        res.status(401).json({ error: error.message })
+    }
+
+}

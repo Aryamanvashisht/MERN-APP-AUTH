@@ -13,6 +13,7 @@ router.post('/authenticate',controllers.verifyUser,(req,res)=>res.end()) //authe
 router.use('/verifyUser',controllers.verifyUser) //verify the user
 router.post('/login',controllers.verifyUser,controllers.login) //login the user
 // routef.route('/login').post(controllers.verifyUser,controllers.login)
+router.post('/verifyToken',Auth,controllers.verifyToken) //verify the token
 
 
 /*Get method*/
@@ -20,7 +21,6 @@ router.get('/user/:username',controllers.getUser) // user with username
 router.get('/generateOTP',controllers.verifyUser,localVariables,controllers.generateOTP) //generate random OTP
 router.get('/verifyOTP',controllers.verifyUser,controllers.verifyOTP) //verify generated OTP
 router.get('/createResetSession',controllers.createResetSession) //reset all the variables
-// router.get('/gettokenuser',controllers.getUserFromToken)
 
 /*Put method*/
 router.put('/updateuser',Auth,controllers.updateUser) //to update the user profile

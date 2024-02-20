@@ -5,19 +5,39 @@ axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN
 
 /** make API requests */
 
-/**get username from function */
-export const getUserFromToken = async ()=>{
-    const token = localStorage.getItem('token')
-    if(!token) return Promise.reject("Cannot find the token")
-    let decode = jwtDecode(token)
-    return decode
-    // console.log(decode);
+// export const getUserFromToken = async ()=>{
+//     const token = localStorage.getItem('token')
+//     if(!token) return Promise.reject("Cannot find the token")
+//     let result = jwtDecode(token)
+//     console.log(result);
+//     return result
+// }
 
-    // try {
-    //     return await axios.get('/api/gettokenuser')
-    // } catch (error) {
-    //     return {error:"Couldn't find the token"}
-    // }
+export const getUserFromToken = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return Promise.reject("Cannot find the token");
+    
+
+    // Send the token to the backend for verification
+    try {
+        const response = await axios.post('/api/verifyToken',null,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        // if (response.ok) {
+        //     console.log('I am here', response.status);
+        //     throw new Error('Token verification failed');
+        // }
+       
+        const result = response.data;
+        // console.log(result.user.username);
+        return result;
+
+    } catch (error) {
+        console.log('I am here');
+        return Promise.reject(error.message);
+    }
 }
 
 

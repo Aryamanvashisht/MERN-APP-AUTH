@@ -17,9 +17,11 @@ export default function useFetch(query){
             try {
                 setData(prev => ({ ...prev, isLoading: true}));
 
-                const { username } = !query ? await getUserFromToken() : '';
+                const result  = !query ? await getUserFromToken() : '';
+                //  const { user :{ username }} = !query ? await getUserFromToken() : '';
+                //  console.log(username);
                 
-                const { data, status } = !query ? await axios.get(`/api/user/${username}`) : await axios.get(`/api/${query}`);
+                const { data, status } = !query ? await axios.get(`/api/user/${result.user.username}`) : await axios.get(`/api/${query}`);
 
                 if(status === 200){
                     setData(prev => ({ ...prev, isLoading: false}));
