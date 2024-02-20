@@ -21,7 +21,7 @@ export default function useFetch(query){
                 //  const { user :{ username }} = !query ? await getUserFromToken() : '';
                 //  console.log(username);
                 
-                const { data, status } = !query ? await axios.get(`/api/user/${result.user.username}`) : await axios.get(`/api/${query}`);
+                const { data, status } = !query ? await axios.get(`https://mern-app-auth.onrender.com/api/user/${result.user.username}`) : await axios.get(`https://mern-app-auth.onrender.com/api/${query}`);
 
                 if(status === 200){
                     setData(prev => ({ ...prev, isLoading: false}));

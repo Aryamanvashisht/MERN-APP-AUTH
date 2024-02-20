@@ -20,7 +20,7 @@ export const getUserFromToken = async () => {
 
     // Send the token to the backend for verification
     try {
-        const response = await axios.post('/api/verifyToken',null,{
+        const response = await axios.post('https://mern-app-auth.onrender.com/api/verifyToken',null,{
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -47,7 +47,7 @@ export const authenticate = async (username) => {
 
     try 
     {
-        return await axios.post('/api/authenticate',{username})  
+        return await axios.post('https://mern-app-auth.onrender.com/api/authenticate',{username})  
     } catch (error) {
         return {error:"Username doesn't exist"}
     }
@@ -60,7 +60,7 @@ export const getUsername  = async ({username}) => {
     try 
     {
         
-        const {data} = await axios.get(`/api/user/${username}`)
+        const {data} = await axios.get(`https://mern-app-auth.onrender.com/api/user/${username}`)
         return {data}
 
     } catch (error) {
@@ -74,12 +74,12 @@ export const registerUser = async (credentials) => {
     try 
     {
      
-        const{data:{msg},status} = await axios.post(`/api/register`,credentials)
+        const{data:{msg},status} = await axios.post(`https://mern-app-auth.onrender.com/api/register`,credentials)
         let{username,email} = credentials
 
         /**send Mail */
         if(status === 201)
-        await axios.post('api/registerMail',{username,userEmail:email,text:msg})
+        await axios.post('https://mern-app-auth.onrender.com/api/registerMail',{username,userEmail:email,text:msg})
         
         return Promise.resolve(msg) 
 
@@ -93,7 +93,7 @@ export const registerUser = async (credentials) => {
 export async function verifyPassword({ username, password }){
     try {
         if(username){
-            const { data } = await axios.post('/api/login', { username, password })
+            const { data } = await axios.post('https://mern-app-auth.onrender.com/api/login', { username, password })
             return Promise.resolve({ data });
         }
     } catch (error) {
@@ -109,7 +109,7 @@ export const updateUser = async (response) => {
       {
         //get the token from localstorage
         const token = localStorage.getItem('token')
-        const {data} = await axios.put('/api/updateuser',response,{headers:{'Authorization':`Bearer ${token}`}})
+        const {data} = await axios.put('https://mern-app-auth.onrender.com/api/updateuser',response,{headers:{'Authorization':`Bearer ${token}`}})
 
         return Promise.resolve({data})
         
@@ -124,14 +124,14 @@ export const updateUser = async (response) => {
 export const generateOTP = async (username) => {
           try 
           {
-            const{data:{code},status} = await axios.get('/api/generateOTP',{params:{username}})
+            const{data:{code},status} = await axios.get('https://mern-app-auth.onrender.com/api/generateOTP',{params:{username}})
 
             if(status === 201)
             {
                let{data:{email}} = await getUsername({username})
 
                let text = `Your Password Recovery OTP is ${code}. Verify and recover your password`
-               await axios.post('api/registerMail',{username,userEmail:email,text,Subject:'Password Recovery OTP'})
+               await axios.post('https://mern-app-auth.onrender.com/api/registerMail',{username,userEmail:email,text,Subject:'Password Recovery OTP'})
             }
 
             return Promise.resolve(code)
@@ -145,7 +145,7 @@ export const generateOTP = async (username) => {
 export const verifyOTP = async ({username,code}) => {
  try 
  {
-     const{data,status} = await axios.get('/api/verifyOTP',{params:{username,code}})
+     const{data,status} = await axios.get('https://mern-app-auth.onrender.com/api/verifyOTP',{params:{username,code}})
      return {data,status}    
  } catch (error) {
     return Promise.reject({error})
@@ -158,7 +158,7 @@ export const verifyOTP = async ({username,code}) => {
 export const resetPassword = async ({username,password}) => {
         try 
         {
-            const{data,status} = await axios.put('/api/resetPassword',{username,password})
+            const{data,status} = await axios.put('https://mern-app-auth.onrender.com/api/resetPassword',{username,password})
             return Promise.resolve({data,status})
              
         } catch (error) {
